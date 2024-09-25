@@ -4,12 +4,17 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       nixpkgs,
       flake-utils,
+      poetry2nix,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -20,7 +25,7 @@
         };
 
         inherit (pkgs) buildNpmPackage fava;
-
+        inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication;
         frontend = buildNpmPackage {
           inherit (fava) meta version;
 
@@ -42,42 +47,20 @@
         };
       in
       {
-        packages.default = pkgs.python3Packages.buildPythonPackage {
-          inherit (pkgs.fava) meta version;
+        packages.default = mkPoetryApplication {
+          projectDir = ./.;
+          preferWheels = true;
 
-          pname = "fava";
-          src = ./.;
-          pyproject = true;
-
-          nativeBuildInputs = [ pkgs.nodejs ];
-          dependencies = with pkgs.python3Packages; [
-            babel
-            beancount
-            build
-            cheroot
-            click
-            flask
-            flask-babel
-            jaraco-functools
-            jinja2
-            markdown2
-            ply
-            setuptools
-            setuptools-scm
-            simplejson
-            watchfiles
-            werkzeug
-          ];
-
-          postFixup = ''
-            mkdir -p src/fava/static
-            cp -rf ${frontend}/* src/fava/static/
+          postInstall = ''
+            mkdir -p $out/lib/python3.*/site-packages/fava/static
+            cp -rf ${frontend}/* $out/lib/python3.*/site-packages/fava/static/
           '';
         };
 
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             nodejs
+            poetry
           ];
         };
       }

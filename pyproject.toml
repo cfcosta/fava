@@ -1,109 +1,81 @@
-[project]
+[tool.poetry]
 name = "fava"
-dynamic = ["version"]
+version = "0.0.0" # This will be dynamically set by Poetry
 description = "Web interface for the accounting tool Beancount."
 readme = "README.rst"
-requires-python = ">=3.8"
-license = {text = "MIT License"}
-authors = [
-  {name = "Dominik Aumayr", email = "dominik@aumayr.name"}
-]
-maintainers = [
-  {name = "Jakob Schnitzer", email = "mail@jakobschnitzer.de"}
-]
-keywords = ["fava", "beancount", "accounting",]
+authors = ["Dominik Aumayr <dominik@aumayr.name>"]
+maintainers = ["Jakob Schnitzer <mail@jakobschnitzer.de>"]
+license = "MIT"
+homepage = "https://beancount.github.io/fava/"
+repository = "https://github.com/beancount/fava/"
+documentation = "https://beancount.github.io/fava/"
+keywords = ["fava", "beancount", "accounting"]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Environment :: Web Environment",
-    "Framework :: Flask",
-    "Intended Audience :: Education",
-    "Intended Audience :: End Users/Desktop",
-    "Intended Audience :: Financial and Insurance Industry",
-    "Intended Audience :: Information Technology",
-    "License :: OSI Approved :: MIT License",
-    "Natural Language :: English",
-    "Programming Language :: JavaScript",
-    "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
-    "Topic :: Office/Business :: Financial :: Accounting",
-    "Topic :: Office/Business :: Financial :: Investment",
-]
-dependencies = [
-    "Babel>=2.7,<3",
-    "Flask-Babel>=1,<5",
-    "Flask>=2.2,<4",
-    "Jinja2>=3,<4",
-    "Werkzeug>=2.2,<4",
-    "beancount>=2.3.5,<3",
-    "cheroot>=8,<11",
-    "click>=7,<9",
-    "markdown2>=2.3.0,<3",
-    "ply",
-    "simplejson>=3.16.0,<4",
-    "watchfiles>=0.20.0",
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Web Environment",
+  "Framework :: Flask",
+  "Intended Audience :: Education",
+  "Intended Audience :: End Users/Desktop",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Intended Audience :: Information Technology",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Programming Language :: JavaScript",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+  "Topic :: Office/Business :: Financial :: Accounting",
+  "Topic :: Office/Business :: Financial :: Investment",
 ]
 
-[project.urls]
-Homepage = "https://beancount.github.io/fava/"
-Changelog = "https://beancount.github.io/fava/changelog.html"
-Source = "https://github.com/beancount/fava/"
-Issues = "https://github.com/beancount/fava/issues/"
-Chat = "https://gitter.im/beancount/fava"
+[tool.poetry.dependencies]
+python = ">=3.8"
+Babel = ">=2.7,<3"
+Flask-Babel = ">=1,<5"
+Flask = ">=2.2,<4"
+Jinja2 = ">=3,<4"
+Werkzeug = ">=2.2,<4"
+beancount = ">=2.3.5,<3"
+cheroot = ">=8,<11"
+click = ">=7,<9"
+markdown2 = ">=2.3.0,<3"
+ply = "*"
+simplejson = ">=3.16.0,<4"
+watchfiles = ">=0.20.0"
 
-[project.scripts]
+[tool.poetry.group.excel.dependencies]
+pyexcel = ">=0.5"
+pyexcel-ods3 = ">=0.5"
+pyexcel-xlsx = ">=0.5"
+
+[tool.poetry.group.dev.dependencies]
+build = "*"
+furo = "*"
+mypy = "*"
+pre-commit = "*"
+pyinstaller = "*"
+pylint = "*"
+pytest = "*"
+pytest-cov = "*"
+setuptools = "*"
+sphinx = "*"
+sphinx-autodoc-typehints = "*"
+tox = "*"
+tox-uv = "*"
+twine = "*"
+types-setuptools = "*"
+types-simplejson = "*"
+
+[tool.poetry.scripts]
 fava = "fava.cli:main"
 
-[project.optional-dependencies]
-# Extra dependencies that are needed for the export to excel.
-excel =[
-    "pyexcel>=0.5",
-    "pyexcel-ods3>=0.5",
-    "pyexcel-xlsx>=0.5",
-]
-# Extra dependencies that are used in tests or for linting.
-dev = [
-    "build",
-    "furo",
-    "mypy",
-    "pre-commit",
-    "pyinstaller",
-    "pylint",
-    "pytest",
-    "pytest-cov",
-    "setuptools",
-    "sphinx",
-    "sphinx-autodoc-typehints",
-    "tox",
-    "tox-uv",
-    "twine",
-    "types-setuptools",
-    "types-simplejson",
-]
-# Pin some lower bounds for transitive dependencies in the old_deps tests
-# This a basically determined by increasing them until getting a combination that runs.
-old_deps_pins = [
-    "bottle>=0.12.20",  # older ones didn't build
-    "importlib_metadata>=3.6",
-    "jaraco-functools>=4",
-    "lxml>=5",  # older ones don't have wheels for recent Python versions
-    "more-itertools>=6",
-    "pytest>=7.2",  # also used for running the tests of Fava, needs to somewhat recent
-    "python-dateutil>=2",
-    "pytz>=2020",
-    "setuptools>=67",
-    "six>=1.16",
-]
-
 [build-system]
-requires = ["setuptools>=67", "setuptools_scm>=8.0", "Babel>=2.7,<3", "wheel"]
-build-backend = "_build_backend"
-backend-path = ["."]
-
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 [tool.setuptools.packages.find]
 where = ["src"]
 
@@ -119,24 +91,24 @@ strict = true
 
 [tool.pylint.'messages control']
 disable = [
-    "too-few-public-methods",
-    "too-many-branches",              # is checked by ruff (PLR0912)
-    "too-many-instance-attributes",
-    "too-many-locals",                # is checked by ruff (PLR0914)
-    "duplicate-code",
-    "stop-iteration-return",
-    "invalid-unary-operand-type",    # type-checking like, had false-positives
-    "not-an-iterable",               # type-checking like, had false-positives
-    "unsubscriptable-object",        # type-checking like, had false-positives
-    "broad-except",                  # is checked by ruff (BLE)
-    "too-many-return-statements",    # is checked by ruff (PLR0911)
-    "too-many-arguments",            # is checked by ruff (PLR0913)
-    "too-many-positional-arguments", # is checked by ruff (PLR0917)
-    "redefined-builtin",             # is checked by ruff (A002)
-    "protected-access",              # is checked by ruff (SLF001)
-    "invalid-name",                  # is checked by ruff (N)
-    "missing-docstring",             # is checked by ruff (D)
-    "redefined-outer-name",          # false positives for pytest fixtures
+  "too-few-public-methods",
+  "too-many-branches",             # is checked by ruff (PLR0912)
+  "too-many-instance-attributes",
+  "too-many-locals",               # is checked by ruff (PLR0914)
+  "duplicate-code",
+  "stop-iteration-return",
+  "invalid-unary-operand-type",    # type-checking like, had false-positives
+  "not-an-iterable",               # type-checking like, had false-positives
+  "unsubscriptable-object",        # type-checking like, had false-positives
+  "broad-except",                  # is checked by ruff (BLE)
+  "too-many-return-statements",    # is checked by ruff (PLR0911)
+  "too-many-arguments",            # is checked by ruff (PLR0913)
+  "too-many-positional-arguments", # is checked by ruff (PLR0917)
+  "redefined-builtin",             # is checked by ruff (A002)
+  "protected-access",              # is checked by ruff (SLF001)
+  "invalid-name",                  # is checked by ruff (N)
+  "missing-docstring",             # is checked by ruff (D)
+  "redefined-outer-name",          # false positives for pytest fixtures
 ]
 
 [tool.pytest.ini_options]
@@ -148,29 +120,27 @@ preview = true
 line-length = 79
 
 [tool.ruff.lint]
-extend-select = [
-    "ALL",
-]
+extend-select = ["ALL"]
 extend-ignore = [
-    "ANN401",   # allow `typing.Any`
-    "C901",     # ignore mccabe complecity for now
-    "CPY",      # no copyright notices in all files
-    "COM812",   # better handled by formatter - avoid having trailing commas everywhere
-    "DOC201",   # allow returns not to be documented for now
-    "DOC501",   # allow raised exception not to be documented for now
-    "DOC502",   # allow documented exceptions that are not explicitly raised
-    "D105",     # allow magic methods to be undocumented
-    "D107",     # allow __init__ to be undocumented - the class should be.
-    "PD",       # pandas-related, has false-positives
-    "PERF203",  # allow try-except in loop; zero-cost since Python 3.11
-    "PLR2004",  # allow magic constants in comparisons
-    "PLR6301",  # allow methods that do not use self
-    "S404",     # This is a bit over-zelous on subprocess
-    "S603",     # This is a bit over-zelous on subprocess.run
+  "ANN401",  # allow `typing.Any`
+  "C901",    # ignore mccabe complecity for now
+  "CPY",     # no copyright notices in all files
+  "COM812",  # better handled by formatter - avoid having trailing commas everywhere
+  "DOC201",  # allow returns not to be documented for now
+  "DOC501",  # allow raised exception not to be documented for now
+  "DOC502",  # allow documented exceptions that are not explicitly raised
+  "D105",    # allow magic methods to be undocumented
+  "D107",    # allow __init__ to be undocumented - the class should be.
+  "PD",      # pandas-related, has false-positives
+  "PERF203", # allow try-except in loop; zero-cost since Python 3.11
+  "PLR2004", # allow magic constants in comparisons
+  "PLR6301", # allow methods that do not use self
+  "S404",    # This is a bit over-zelous on subprocess
+  "S603",    # This is a bit over-zelous on subprocess.run
 ]
 
 [tool.ruff.lint.flake8-type-checking]
-strict = true  # always move type-only imports to TYPE_CHECKING-if blocks
+strict = true # always move type-only imports to TYPE_CHECKING-if blocks
 
 [tool.ruff.lint.isort]
 force-single-line = true
