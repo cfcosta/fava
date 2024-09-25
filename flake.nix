@@ -33,7 +33,7 @@
             nodejs
           ];
 
-          npmDepsHash = "";
+          npmDepsHash = "sha256-cLULNIaBIUJ5QbFn9HXaxpafi3/YKRC6SN7FNIe2AZs=";
 
           installPhase = ''
             mkdir -p $out
