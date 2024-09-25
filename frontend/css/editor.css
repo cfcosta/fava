@@ -1,8 +1,14 @@
 /* Editor */
 
+.cm-editor {
+  color: var(--text);
+  background-color: var(--background);
+}
+
 .cm-editor .cm-gutters {
-  background: var(--sidebar-background);
-  border-right: 1px solid var(--sidebar-border);
+  color: var(--subtext1);
+  background: var(--surface0);
+  border-right: 1px solid var(--surface1);
 }
 
 .cm-editor .cm-scroller {
@@ -14,7 +20,8 @@
 }
 
 .cm-editor .cm-tooltip {
-  background-color: var(--sidebar-border);
+  background-color: var(--surface1);
+  border: 1px solid var(--surface2);
 }
 
 /* stylelint-disable selector-class-pattern */
@@ -23,17 +30,57 @@
 }
 
 .cm-editor .cm-selectionBackground {
-  background-color: var(--editor-activeline);
+  background-color: var(--surface1);
 }
 
 .cm-editor.cm-focused
   > .cm-scroller
   > .cm-selectionLayer
   .cm-selectionBackground {
-  background-color: var(--editor-activeline);
+  background-color: var(--surface1);
 }
 
 .cm-editor .cm-selectionMatch {
   background-color: var(--editor-selectionmatch);
 }
+
+.cm-editor .cm-cursor {
+  border-left-color: var(--text);
+}
+
+.cm-editor .cm-lineNumbers {
+  color: var(--subtext0);
+}
+
+.cm-editor .cm-foldPlaceholder {
+  background-color: var(--surface1);
+  border-color: var(--surface2);
+}
+
+.cm-editor .cm-activeLineGutter {
+  background-color: var(--surface0);
+}
+
+/* Syntax highlighting */
+.cm-editor .cm-keyword { color: var(--mauve); }
+.cm-editor .cm-operator { color: var(--sky); }
+.cm-editor .cm-variable-2 { color: var(--rosewater); }
+.cm-editor .cm-variable-3, .cm-editor .cm-type { color: var(--yellow); }
+.cm-editor .cm-builtin { color: var(--peach); }
+.cm-editor .cm-atom { color: var(--pink); }
+.cm-editor .cm-number { color: var(--peach); }
+.cm-editor .cm-def { color: var(--blue); }
+.cm-editor .cm-string { color: var(--green); }
+.cm-editor .cm-string-2 { color: var(--yellow); }
+.cm-editor .cm-comment { color: var(--overlay0); }
+.cm-editor .cm-variable { color: var(--text); }
+.cm-editor .cm-tag { color: var(--mauve); }
+.cm-editor .cm-meta { color: var(--blue); }
+.cm-editor .cm-attribute { color: var(--green); }
+.cm-editor .cm-property { color: var(--blue); }
+.cm-editor .cm-qualifier { color: var(--green); }
+.cm-editor .cm-bracket { color: var(--overlay2); }
+.cm-editor .cm-link { color: var(--rosewater); text-decoration: underline; }
+.cm-editor .cm-error { color: var(--red); }
+
 /* stylelint-enable selector-class-pattern */
